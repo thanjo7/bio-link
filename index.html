@@ -15,46 +15,65 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
+/* 1. CONFIGURAZIONE GENERALE */
 * {
+  /* Per rimuovere margini e padding */
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
 html {
+  /* Scorrimento fluido della pagina quando clicchiamo link interni */
   scroll-behavior: smooth;
 }
 
 body {
+  /* Applichiamo il font di Google Fonts */
   font-family: 'Poppins', sans-serif;
+  /* Sfondo con gradiente blu/azzurro */
   background: linear-gradient(135deg, #cce7ff 0%, #e6f2ff 50%, #b3d9ff 100%);
+  /* In modo tale che lo sfondo rimanga fisso */
   background-attachment: fixed;
+  /* Per rendere il layout flessibile */
   display: flex;
+  /* Per allineare gli elementi in verticale */
   flex-direction: column;
+  /* Per centrare gli elementi in orizzontale */
   align-items: center;
+  /* Spazio interno intorno ai contenuti */
   padding: 40px 20px;
+  /* Transizione per quando si cambia tema */
   transition: background-color 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
               background-image 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   min-height: 100vh;
+  /* Colore del testo in modalità chiara */
   color: #1a202c;
   overflow-x: hidden;
   position: relative;
 }
 
+/* Per creare l'effetto di sfondo animato */
 .background-animation {
+  /* Posizionamento fisso in modo tale da coprire tutto lo schermo */
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  /* Sempre dietro agli altri elementi (il -1 fa in modo che lo metta sotto tutto) */
   z-index: -1;
+  /* Per non farlo interferire con i click dei bottoni */
   pointer-events: none;
+  /* Per creare due gradienti radiali trasparenti per effetto 3D */
   background: 
     radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.3) 0%, transparent 50%),
     radial-gradient(circle at 80% 80%, rgba(52, 152, 219, 0.15) 0%, transparent 50%);
+  /* Anima lo sfondo per 20 secondi in loop continuo */
   animation: floatBg 20s ease-in-out infinite;
 }
 
+/* Animazione che muove lo sfondo su e giù */
 @keyframes floatBg {
   0%, 100% {
     transform: translateY(0px) translateX(0px);
@@ -64,101 +83,841 @@ body {
   }
 }
 
+/* 2. STILE INTESTAZIONE */
 header {
+  /* Testo centrato orizzontalmente */
   text-align: center;
+  /* Spazio sotto l'header */
   margin-bottom: 40px;
+  /* Animazione che scende dall'alto quando carica la pagina */
   animation: slideDownHeader 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
   position: relative;
   z-index: 10;
 }
 
+/* Animazione di entrata dell'header: da sfocato a nitido */
 @keyframes slideDownHeader {
+  /* Stato iniziale */
   from {
     opacity: 0;
     transform: translateY(-50px);
+    /* Effetto sfocatura iniziale */
     filter: blur(10px);
   }
+  /* Stato finale */
   to {
     opacity: 1;
     transform: translateY(0);
+    /* Nessuna sfocatura */
     filter: blur(0);
   }
 }
 
+/* Contenitore principale dell'header */
 .header-content {
+  /* Effetto vetro per ottenere la sfocatura del background */
   backdrop-filter: blur(16px);
+  /* Sfondo semi-trasparente bianco */
   background: rgba(255, 255, 255, 0.25);
+  /* Spazio interno verticale e orizzontale */
   padding: 50px 40px;
+  /* Angoli arrotondati */
   border-radius: 30px;
+  /* Bordo semi-trasparente bianco */
   border: 1.5px solid rgba(255, 255, 255, 0.35);
+  /* Ombra e interna per ottenere la profondità */
   box-shadow: 
     0 8px 32px rgba(0, 0, 0, 0.1),
     inset 0 0 20px rgba(255, 255, 255, 0.2);
   position: relative;
+  /* Per nascondere il contenuto che esce dai bordi */
   overflow: hidden;
 }
 
+/* Per creare l'effetto di luce rotante */
 .header-content::before {
   content: '';
+  /* Posizionato dentro il header-content */
   position: absolute;
+  /* Posizionato nell'angolo superiore destro */
   top: -50%;
+  /* Posizionato a destra */
   right: -50%;
   width: 100%;
   height: 100%;
+  /* Gradiente radiale che crea il riflesso/luce */
   background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+  /* Ruota continuamente per 20 secondi in loop infinito */
   animation: rotateGradient 20s linear infinite;
 }
 
+/* Animazione che fa ruotare il gradiente */
 @keyframes rotateGradient {
+  /* Partenza: nessuna rotazione */
   0% {
     transform: rotate(0deg);
   }
+  /* Fine: rotazione completa */
   100% {
     transform: rotate(360deg);
   }
 }
 
+/* Wrapper che contiene l'immagine profilo */
 .profile-wrapper {
   position: relative;
   display: inline-block;
+  /* Spazio sotto il wrapper */
   margin-bottom: 20px;
 }
 
+/* Immagine del profilo */
 .profile-img {
+  /* Larghezza dell'immagine */
   width: 160px;
+  /* Altezza dell'immagine */
   height: 160px;
+  /* Rende l'immagine circolare */
   border-radius: 50%;
+  /* Bordo bianco spesso */
   border: 5px solid rgba(255, 255, 255, 0.8);
+  /* Due ombre: esterna blu e interna azzurra per profondità */
   box-shadow: 
     0 10px 40px rgba(52, 152, 219, 0.3),
     0 0 0 2px rgba(52, 152, 219, 0.1);
+  /* Adatta l'immagine al contenitore quadrato */
   object-fit: cover;
+  /* Animazione di dell'immagine che scala di dimensioni e ruota */
   animation: popInScale 0.7s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  /* Transizione */
   transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  /* Per indicare l'ordine di sovrapposizione */
+  z-index: 2;
+}
+/* Animazione di comparsa dell'immagine: scala e ruota */
+@keyframes popInScale {
+  /* Stato iniziale */
+  0% {
+    /* Invisibile */
+    opacity: 0;
+    /* Scala al 30% della grandezza finale */
+    transform: scale(0.3) rotate(-180deg);
+    /* Sfocatura iniziale */
+    filter: blur(10px);
+  }
+  /* A metà animazione */
+  50% {
+    /* Scala al 105% */
+    transform: scale(1.05);
+  }
+  /* Stato finale */
+  100% {
+    /* Visibile */
+    opacity: 1;
+    /* Grandezza normale e rotazione normale */
+    transform: scale(1) rotate(0deg);
+    /* Nessuna sfocatura */
+    filter: blur(0);
+  }
+}
+/* Effetto hover dell'immagine profilo */
+.profile-img:hover {
+  /* Ingrandisce al 115% e ruota al passaggio del mouse */
+  transform: scale(1.15) rotate(8deg);
+}
+
+h1 {
+  margin: 25px 0 5px;
+  font-size: 32px;
+  color: #2c3e50;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  animation: fadeInUpText 0.8s ease-out 0.2s both;
   position: relative;
   z-index: 2;
 }
 
-@keyframes popInScale {
-  0% {
+.subtitle {
+  color: #2d3748;
+  font-size: 16px;
+  font-weight: 600;
+  animation: fadeInUpText 0.8s ease-out 0.3s both;
+  position: relative;
+  z-index: 2;
+  margin-bottom: 4px;
+}
+
+.subtitle-secondary {
+  color: #4a5568;
+  font-size: 14px;
+  font-weight: 500;
+  animation: fadeInUpText 0.8s ease-out 0.4s both;
+  position: relative;
+  z-index: 2;
+  margin-bottom: 15px;
+}
+
+/* Animazione che fa salire il testo da sfocato a nitido */
+@keyframes fadeInUpText {
+  /* Stato iniziale */
+  from {
+    /* Invisibile */
     opacity: 0;
-    transform: scale(0.3) rotate(-180deg);
-    filter: blur(10px);
+    /* Posizionato 20px più in basso */
+    transform: translateY(20px);
   }
-  50% {
-    transform: scale(1.05);
-  }
-  100% {
+  /* Stato finale */
+  to {
+    /* Completamente visibile */
     opacity: 1;
-    transform: scale(1) rotate(0deg);
-    filter: blur(0);
+    /* Posizione normale */
+    transform: translateY(0);
   }
 }
 
-.profile-img:hover {
-  transform: scale(1.15) rotate(8deg);
+.divider {
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #3498db, transparent);
+  margin: 15px auto;
+  border-radius: 10px;
+  animation: expandWidth 0.8s ease-out 0.5s both;
+  position: relative;
+  z-index: 2;
+}
+
+/* Espansione della larghezza della linea */
+@keyframes expandWidth {
+  /* Stato iniziale: invisibile e larghezza 0 */
+  from {
+    /* Linea invisibile */
+    width: 0;
+    /* Invisibile all'inizio */
+    opacity: 0;
+  }
+  /* Stato finale */
+  to {
+    /* Larghezza normale */
+    width: 60px;
+    /* Completamente visibile */
+    opacity: 1;
+  }
+}
+
+.theme-switch {
+  position: fixed;
+  top: 25px;
+  right: 25px;
+  z-index: 1000;
+  animation: slideInRight 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Animazione che fa scivolare da destra */
+@keyframes slideInRight {
+  /* Stato iniziale */
+  from {
+    /* Invisibile */
+    opacity: 0;
+    /* Spostato 100px a destra */
+    transform: translateX(100px);
+  }
+  /* Stato finale */
+  to {
+    /* Completamente visibile */
+    opacity: 1;
+    /* Posizione normale */
+    transform: translateX(0);
+  }
+}
+
+#theme-toggle {
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  padding: 14px 24px;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 
+    0 4px 15px rgba(52, 152, 219, 0.4),
+    inset 0 0 20px rgba(255, 255, 255, 0.1);
+  font-size: 16px;
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Per dare l'effetto shine al bottone */
+#theme-toggle::before {
+  /* Crea un elemento virtuale */
+  content: '';
+  /* Posizionato dentro il bottone */
+  position: absolute;
+  /* Posizionato all'inizio verticale */
+  top: 0;
+  /* Posizionato a sinistra, fuori dalla vista iniziale */
+  left: -100%;
+  /* Copre tutta la larghezza e altezza del bottone */
+  width: 100%;
+  height: 100%;
+  /* Gradiente che simula una luce che passa da sinistra a destra */
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  /* Transizione fluida da sinistra a destra */
+  transition: left 0.5s ease;
+}
+
+#theme-toggle:hover::before {
+  left: 100%;
+}
+
+#theme-toggle:hover {
+  transform: translateY(-4px) scale(1.08);
+  box-shadow: 
+    0 8px 25px rgba(52, 152, 219, 0.6),
+    inset 0 0 20px rgba(255, 255, 255, 0.15);
+}
+
+#theme-toggle:active {
+  transform: translateY(-2px) scale(1.05);
+}
+
+/* 3. IL CONTENITORE DEI BOTTONI */
+.container {
+  width: 100%;
+  max-width: 480px;
+  margin-top: 30px;
+  animation: fadeInUp 0.8s ease-out 0.4s both;
+  position: relative;
+  z-index: 10;
+}
+
+.buttons-section {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 16px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(248, 249, 250, 0.8));
+  color: #333;
+  text-decoration: none;
+  padding: 18px;
+  margin-bottom: 0px;
+  border-radius: 20px;
+  font-weight: 600;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 
+    0 8px 24px rgba(0, 0, 0, 0.12),
+    inset 0 0 15px rgba(255, 255, 255, 0.4);
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+/* Pseudo-elemento che crea l'effetto shine sui bottoni */
+.btn::before {
+  /* Crea un elemento virtuale */
+  content: '';
+  /* Posizionato dentro il bottone */
+  position: absolute;
+  /* Posizionato all'inizio verticale */
+  top: 0;
+  /* Posizionato a sinistra, fuori dalla vista iniziale */
+  left: -100%;
+  /* Copre tutta la larghezza e altezza del bottone */
+  width: 100%;
+  height: 100%;
+  /* Gradiente che simula una luce che passa da sinistra a destra */
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(255, 255, 255, 0.4) 20%,
+    rgba(255, 255, 255, 0.2) 100%);
+  /* Transizione fluida da sinistra a destra */
+  transition: left 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btn:hover::before {
+  left: 100%;
+}
+
+.btn-icon {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+}
+
+.btn:hover .btn-icon {
+  transform: scale(1.2) rotate(360deg);
+}
+
+.btn-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.btn-title {
+  font-size: 16px;
+  font-weight: 700;
+  display: block;
+  transition: all 0.4s ease;
+}
+
+.btn-subtitle {
+  font-size: 13px;
+  font-weight: 400;
+  opacity: 0.7;
+  display: block;
+  transition: all 0.4s ease;
+}
+
+/* 4. EFFETTO HOVER: L'anima del sito */
+.btn-instagram {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 240, 245, 0.9));
+}
+
+.btn-instagram:hover {
+  background: linear-gradient(135deg, #e91e63, #c2185b);
+  color: white;
+  border-color: #e91e63;
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 
+    0 15px 35px rgba(233, 30, 99, 0.4),
+    inset 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+.btn-instagram:hover .btn-subtitle {
+  opacity: 0.9;
+}
+
+.btn-github {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(245, 245, 245, 0.9));
+}
+
+.btn-github:hover {
+  background: linear-gradient(135deg, #1f2937, #111827);
+  color: white;
+  border-color: #374151;
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 
+    0 15px 35px rgba(31, 41, 55, 0.4),
+    inset 0 0 20px rgba(255, 255, 255, 0.05);
+}
+
+.btn-linkedin {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(240, 247, 255, 0.9));
+}
+
+.btn-linkedin:hover {
+  background: linear-gradient(135deg, #0077b5, #005f8a);
+  color: white;
+  border-color: #0077b5;
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 
+    0 15px 35px rgba(0, 119, 181, 0.4),
+    inset 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+.btn-school {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 248, 240, 0.9));
+}
+
+.btn-school:hover {
+  background: linear-gradient(135deg, #f97316, #dc2626);
+  color: white;
+  border-color: #f97316;
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 
+    0 15px 35px rgba(249, 115, 22, 0.4),
+    inset 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+.btn-polimi {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(240, 248, 255, 0.9));
+}
+
+.btn-polimi:hover {
+  background: linear-gradient(135deg, #7c3aed, #6d28d9);
+  color: white;
+  border-color: #7c3aed;
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 
+    0 15px 35px rgba(124, 58, 237, 0.4),
+    inset 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+.btn-email {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 251, 240, 0.9));
+}
+
+.btn-email:hover {
+  background: linear-gradient(135deg, #ea4335, #c5221f);
+  color: white;
+  border-color: #ea4335;
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 
+    0 15px 35px rgba(234, 67, 53, 0.4),
+    inset 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+.btn:active {
+  transform: translateY(-4px) scale(0.98);
+}
+
+/* Effetto Ripple: onda al click */
+.ripple {
+  /* Posizionato dentro il bottone */
+  position: absolute;
+  /* Forma circolare (50% su elemento quadrato = cerchio) */
+  border-radius: 50%;
+  /* Colore semi-trasparente */
+  background: rgba(255, 255, 255, 0.5);
+  /* Inizia piccolo e si espande */
+  transform: scale(0);
+  /* Animazione dell'onda che si espande */
+  animation: rippleAnimation 0.6s ease-out;
+  /* Non interferisce con i click dei bottoni */
+  pointer-events: none;
+}
+
+/* Animazione dell'onda che si espande e scompare */
+@keyframes rippleAnimation {
+  /* Stato finale della ripple */
+  to {
+    /* Si espande a 4x la grandezza originale */
+    transform: scale(4);
+    /* Scompare gradualmente */
+    opacity: 0;
+  }
+}
+
+footer {
+  margin-top: 60px;
+  color: #718096;
+  font-size: 14px;
+  animation: fadeInUp 0.8s ease-out 0.7s both;
+  text-align: center;
+  position: relative;
+  z-index: 10;
+}
+
+footer p {
+  margin: 5px 0;
+  transition: all 0.4s ease;
+}
+
+/* Animazione del cuore battente */
+.heart {
+  display: inline-block;
+  /* Animazione che fa battere il cuore */
+  animation: heartBeat 1.3s ease-in-out infinite;
+}
+
+/* Animazione del cuore che batte */
+@keyframes heartBeat {
+  /* Inizio e fine */
+  0%, 100% {
+    /* Grandezza normale */
+    transform: scale(1);
+  }
+  /* Primo battito */
+  14% {
+    /* Ingrandisce al 130% */
+    transform: scale(1.3);
+  }
+  /* Ritorna a grandezza normale */
+  28% {
+    transform: scale(1);
+  }
+  /* Secondo battito */
+  42% {
+    /* Ingrandisce al 130% */
+    transform: scale(1.3);
+  }
+  /* Ritorna a grandezza normale */
+  70% {
+    transform: scale(1);
+  }
+}
+
+.footer-year {
+  font-size: 12px;
+  opacity: 0.6;
+}
+
+/* Stile della modalità notte */
+body.dark-mode {
+  /* Sfondo gradiente blu navy che va da oscuro a meno oscuro */
+  background: linear-gradient(135deg, #0f172a 0%, #1a1f3a 50%, #16213e 100%) !important;
+  /* Il background rimane fisso anche quando scendiamo lungo la pagina */
+  background-attachment: fixed !important;
+  /* Testo bianco */
+  color: #f7fafc;
+}
+
+body.dark-mode .header-content {
+  background: rgba(15, 23, 42, 0.6);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    inset 0 0 20px rgba(255, 255, 255, 0.05);
+}
+
+body.dark-mode h1 {
+  color: #f1f5f9;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode .subtitle,
+body.dark-mode .subtitle-secondary,
+body.dark-mode .bio {
+  color: #cbd5e0;
+}
+
+body.dark-mode .btn {
+  background: linear-gradient(135deg, rgba(45, 55, 72, 0.8), rgba(26, 32, 44, 0.8));
+  color: #f7fafc;
+  border: 1px solid #555;
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 
+    0 8px 24px rgba(0, 0, 0, 0.3),
+    inset 0 0 15px rgba(255, 255, 255, 0.05);
+}
+
+body.dark-mode .btn:hover {
+  border-color: currentColor;
+  box-shadow: 
+    0 15px 35px rgba(52, 152, 219, 0.3),
+    inset 0 0 20px rgba(255, 255, 255, 0.08);
+}
+
+body.dark-mode .btn-subtitle {
+  opacity: 0.8;
+}
+
+body.dark-mode footer {
+  color: #a0aec0;
+}
+
+body.dark-mode #theme-toggle {
+  background: linear-gradient(135deg, #1a365d, #0f172a);
+  border-color: rgba(52, 152, 219, 0.4);
+  box-shadow: 
+    0 4px 15px rgba(52, 152, 219, 0.3),
+    inset 0 0 20px rgba(255, 255, 255, 0.02);
+}
+
+body.dark-mode #theme-toggle:hover {
+  background: linear-gradient(135deg, #2563eb, #1e40af);
+  border-color: rgba(37, 99, 235, 0.6);
+}
+
+/* Animazioni */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Media query per tablet (in modo tale da adattareil sito allo schermo dei tablet) */
+@media (max-width: 768px) {
+  body {
+    padding: 30px 15px;
+  }
+
+  header {
+    margin-bottom: 35px;
+  }
+
+  .header-content {
+    padding: 40px 30px;
+    border-radius: 25px;
+  }
+
+  .profile-img {
+    width: 140px;
+    height: 140px;
+  }
+
+  h1 {
+    font-size: 28px;
+  }
+
+  .subtitle {
+    font-size: 15px;
+  }
+
+  .container {
+    max-width: 100%;
+  }
+
+  .btn {
+    padding: 16px 20px;
+    font-size: 15px;
+  }
+
+  .btn-icon {
+    width: 45px;
+    height: 45px;
+    font-size: 1.6rem;
+  }
+
+  .theme-switch {
+    top: 15px;
+    right: 15px;
+  }
+
+  #theme-toggle {
+    padding: 12px 18px;
+    font-size: 14px;
+  }
+}
+/* Media query per smartphone (per adattare il sito agli schermi degli smartphone) */
+@media (max-width: 480px) {
+  body {
+    padding: 20px 12px;
+  }
+
+  header {
+    margin-bottom: 30px;
+  }
+
+  .header-content {
+    padding: 35px 20px;
+    border-radius: 20px;
+  }
+
+  .profile-img {
+    width: 120px;
+    height: 120px;
+    border-width: 4px;
+  }
+
+  h1 {
+    font-size: 24px;
+    margin: 18px 0 6px;
+  }
+
+  .subtitle {
+    font-size: 13px;
+    margin-bottom: 2px;
+  }
+
+  .subtitle-secondary {
+    font-size: 12px;
+  }
+
+  .bio {
+    font-size: 13px;
+  }
+
+  .container {
+    max-width: 100%;
+    margin-top: 20px;
+  }
+
+  .buttons-section {
+    gap: 14px;
+  }
+
+  .btn {
+    padding: 15px 16px;
+    font-size: 14px;
+    gap: 12px;
+  }
+
+  .btn-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 1.4rem;
+    flex-shrink: 0;
+  }
+
+  .btn-title {
+    font-size: 15px;
+  }
+
+  .btn-subtitle {
+    font-size: 12px;
+  }
+
+  .theme-switch {
+    top: 12px;
+    right: 12px;
+  }
+
+  #theme-toggle {
+    padding: 10px 14px;
+    font-size: 13px;
+  }
+
+  footer {
+    margin-top: 40px;
+    font-size: 12px;
+  }
+
+  .footer-year {
+    font-size: 11px;
+  }
+}
+
+/* Media query per dispositivi piccoli (per adattare il sito a schermi di piccole dimensioni) */
+@media (max-width: 360px) {
+  h1 {
+    font-size: 20px;
+  }
+
+  .profile-img {
+    width: 100px;
+    height: 100px;
+  }
+
+  .btn {
+    padding: 12px 12px;
+    font-size: 13px;
+  }
+
+  .btn-icon {
+    width: 35px;
+    height: 35px;
+    font-size: 1.2rem;
+  }
+
+  .header-content {
+    padding: 30px 15px;
+  }
 }
 </style>
+
 </head>
 <body>
 
@@ -186,6 +945,109 @@ header {
 <div class="divider"></div>
 </div>
 </header>
+<main class="container">
+<div class="buttons-section">
+<!-- Bottone Instagram -->
+<a href="https://www.instagram.com/_jonathan_guirguis_/" target="_blank" rel="noopener" class="btn btn-instagram">
+<!-- Per fare in modo che l'icona ruoti al passaggio del mouse -->
+<div class="btn-icon">
+<!-- Icona di Instagram presa da Font Awesome (fab è per le icone dei brand mentre fas per le icone generiche ) -->
+<i class="fab fa-instagram"></i>
+</div>
+<!-- Contenitore del titolo e del sottotitolo -->
+<div class="btn-content">
+<!-- Titolo del bottone -->
+<span class="btn-title">Instagram</span>
+<!-- Sottotitolo del bottone -->
+<span class="btn-subtitle">Seguimi</span>
+</div>
+</a>
+<!-- Bottone Github -->
+<a href="https://github.com/tanjo7" target="_blank" rel="noopener" class="btn btn-github">
+<!-- Contenitore dell'icona che ruota al passaggio del mouse -->
+<div class="btn-icon">
+<!-- Icona GitHub da Font Awesome (fab = Font Awesome Brand) -->
+<i class="fab fa-github"></i>
+</div>
+<!-- Contenitore del titolo e del sottotitolo -->
+<div class="btn-content">
+<!-- Titolo del bottone -->
+<span class="btn-title">GitHub</span>
+<!-- Sottotitolo del bottone -->
+<span class="btn-subtitle">I miei progetti</span>
+</div>
+</a>
+<!-- Bottone Linkedin -->
+<a href="https://www.linkedin.com/in/jonathan-guirguis-0b2ba23b9" target="_blank" rel="noopener" class="btn btn-linkedin">
+<!-- Contenitore dell'icona che ruota al passaggio del mouse -->
+<div class="btn-icon">
+<!-- Icona di Linkedin presa da Font Awesome -->
+<i class="fab fa-linkedin"></i>
+</div>
+<!-- Contenitore del titolo e del sottotitolo -->
+<div class="btn-content">
+<!-- Titolo del bottone -->
+<span class="btn-title">LinkedIn</span>
+<!-- Sottotitolo del bottone -->
+<span class="btn-subtitle">Professionale</span>
+</div>
+</a>
+<!-- Bottone istituto -->
+<a href="https://torricellimi.edu.it/" target="_blank" rel="noopener" class="btn btn-school">
+<!-- Contenitore dell'icona che ruota al passaggio del mouse -->
+<div class="btn-icon">
+<!-- Icona del cappello accademico presa da Font Awesome -->
+<i class="fas fa-graduation-cap"></i>
+</div>
+<!-- Contenitore del titolo e del sottotitolo -->
+<div class="btn-content">
+<!-- Titolo del bottone -->
+<span class="btn-title">Istituto</span>
+<!-- Sottotitolo del bottone -->
+<span class="btn-subtitle">Liceo Torricelli</span>
+</div>
+</a>
+<!-- Bottone Politecnico -->
+<a href="https://www.polimi.it/" target="_blank" rel="noopener" class="btn btn-polimi">
+<!-- Contenitore dell'icona che ruota al passaggio del mouse -->
+<div class="btn-icon">
+<!-- Icona dell'università presa da Font Awesome -->
+<i class="fas fa-university"></i>
+</div>
+<!-- Contenitore del titolo e del sottotitolo -->
+<div class="btn-content">
+<!-- Titolo del bottone -->
+<span class="btn-title">Politecnico</span>
+<!-- Sottotitolo del bottone -->
+<span class="btn-subtitle">Politecnico di Milano</span>
+</div>
+</a>
+<!-- Bottone email -->
+<a href="https://mail.google.com/mail/?view=cm&fs=1&to=jonathan.guirguis21@gmail.com&su=Ciao Jonathan" target="_blank" class="btn btn-email">
+<!-- Contenitore dell'icona che ruota al passaggio del mouse -->
+<div class="btn-icon">
+<!-- Icona dell'email presa da Font Awesome -->
+<i class="fas fa-envelope"></i>
+</div>
+<!-- Contenitore del titolo e del sottotitolo -->
+<div class="btn-content">
+<!-- Titolo del bottone -->
+<span class="btn-title">Email</span>
+<!-- Sottotitolo del bottone -->
+<span class="btn-subtitle">Contattami</span>
+</div>
+</a>
+
+</div>
+</main>
+
+<!-- Fine della pagina -->
+<footer>
+<!-- Per dare al cuore l'animazione del battito -->
+<p>Realizzato con <span class="heart">❤️</span> per il corso di Informatica</p>
+<!-- Anno e copyright del sito -->
+<p class="footer-year">© 2026 Jonathan Guirguis</p>
+</footer>
 
 <script>
 /* Bottone per cambiare tema luce/scurità */
@@ -194,7 +1056,110 @@ const corpo = document.body;
 const bottoniFlex = document.querySelectorAll('.btn');
 /* Messaggio di benvenuto */
 alert("Benvenuto nel mio Linktree!");
+/* Esegue il codice quando la pagina termina di caricare */
+window.addEventListener('load', () => {
+  /* Legge il tema salvato */
+  const temaSalvato = localStorage.getItem('tema');
+  /* Se il tema salvato è quello dark */
+  if (temaSalvato === 'dark') {
+    /* Aggiunge la classe dark-mode al body */
+    corpo.classList.add('dark-mode');
+    /* Cambia testo del bottone a quello della modalità luce */
+    pulsante.innerText = "☀️ Modalità Luce";
+  }
+  /* Per ogni bottone */
+  bottoniFlex.forEach((btn, index) => {
+    /* Calcola il ritardo progressivo per ogni bottone */
+    const delay = 0.5 + index * 0.12;
+    /* Applica l'animazione con il ritardo calcolato */
+    btn.style.animation = `fadeInUp 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) ${delay}s both`;
+  });
+});
+/* Ascolta il click sul bottone tema */
+pulsante.addEventListener('click', () => {
+  /* Imposta la transizione del bottone */
+  pulsante.style.transition = 'transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
+  /* Effetto: rotazione e ingrandimento */
+  pulsante.style.transform = 'rotate(360deg) scale(1.1)';
+  
+  /* Ritorno alla posizione normale */
+  setTimeout(() => {
+    pulsante.style.transform = 'translateY(-4px) scale(1.08)';
+  }, 500);
+
+  /* Attiva/disattiva la classe dark-mode */
+  corpo.classList.toggle('dark-mode');
+
+  /* Se (if) la dark-mode è attiva */
+  if (corpo.classList.contains('dark-mode')) {
+    /* Cambia testo e salva la preferenza */
+    pulsante.innerText = "☀️ Modalità Luce";
+    localStorage.setItem('tema', 'dark');
+  } else {
+    /* Altrimenti (else) torna al tema chiaro */
+    pulsante.innerText = "🌙 Modalità Notte";
+    localStorage.setItem('tema', 'light');
+  }
+});
+
+/* Effetto ripple sui bottoni */
+/* Aggiunge l'effetto onda ai bottoni */
+bottoniFlex.forEach(btn => {
+  /* Ascolta il click sul bottone */
+  btn.addEventListener('click', function(e) {
+    const ripple = document.createElement('span');
+    /* Prende le dimensioni del bottone */
+    const rect = this.getBoundingClientRect();
+    /* Calcola la dimensione per il cerchio */
+    const size = Math.max(rect.width, rect.height);
+    /* Calcola la posizione del click */
+    const x = e.clientX - rect.left - size / 2;
+    const y = e.clientY - rect.top - size / 2;
+    /* Imposta larghezza e altezza della ripple */
+    ripple.style.width = ripple.style.height = size + 'px';
+    /* Posiziona la ripple al punto del click */
+    ripple.style.left = x + 'px';
+    ripple.style.top = y + 'px';
+    /* Aggiunge la classe per lo stile e animazione */
+    ripple.classList.add('ripple');
+    
+    /* Aggiunge la ripple al bottone */
+    this.appendChild(ripple);
+    
+    /* Rimuove la ripple dopo l'animazione */
+    setTimeout(() => ripple.remove(), 600);
+  });
+});
+
+/* Movimento dell'header al passaggio del mouse */
+/* Ascolta il movimento del mouse */
+document.addEventListener('mousemove', (e) => {
+  /* Calcola la posizione del mouse */
+  const mouseX = e.clientX / window.innerWidth;
+  const mouseY = e.clientY / window.innerHeight;
+  /* Prende l'elemento header */
+  const header = document.querySelector('header');
+  /* Se l'header esiste */
+  if (header) {
+    /* Calcola gli angoli di rotazione 3D */
+    const moveX = (mouseX - 0.5) * 5;
+    const moveY = (mouseY - 0.5) * 5;
+    /* Applica la rotazione 3D all'header */
+    header.style.transform = `perspective(1000px) rotateX(${moveY}deg) rotateY(${moveX}deg)`;
+  }
+});
+/* Quando il mouse esce dalla pagina */
+document.addEventListener('mouseleave', () => {
+  /* Prende l'elemento header */
+  const header = document.querySelector('header');
+  /* Se l'header esiste */
+  if (header) {
+    /* Resetta la rotazione */
+    header.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+  }
+});
 </script>
 
 </body>
 </html>
+
